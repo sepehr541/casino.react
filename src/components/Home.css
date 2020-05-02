@@ -1,0 +1,16 @@
+body {
+    background-image: url('./BG2.svg');
+}
+
+.menu {
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 10px;
+}
+
+.input-field label {
+    color: white;
+}
+
+textarea {
+    color: white;
+}

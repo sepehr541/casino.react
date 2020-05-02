@@ -1,0 +1,14 @@
+.table {
+    background-image: url('../tableBG.svg');
+    border: 2px;
+    border-color: blueviolet;
+    height: 35em !important;
+    border-radius: 50%;
+}
+
+.tableBtns {
+    background-color: rgba(0,0,0,0.8);
+}
+textarea {
+    color: white;
+}
