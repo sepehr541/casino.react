@@ -2,21 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
-import rootReducer from './reducers/rootReducer';
+import mainReducer from './reducers/rootReducer';
 import socketMiddleware from './reducers/socketMiddleware';
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import  Logger from './reducers/logger';
 
-let store = createStore(rootReducer
-  // ,applyMiddleware(socketMiddleware)
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+let store = createStore(mainReducer,
+  composeEnhancers(
+    applyMiddleware(
+      socketMiddleware(),
+      Logger
+    )
+  )
 );
-store.subscribe(() => {
-  console.log("Store Updated", store.getState());
-});
 
-console.log('test dispatch');
-store.dispatch({ type: 'TEST', payload: 'TEST_PAYLOAD' });
-console.log('test dispatch sent');
+store.subscribe(()=> console.log(store.getState()));
 
 ReactDOM.render(
   <Provider store={store}>

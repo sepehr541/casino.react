@@ -1,6 +1,5 @@
 import React from 'react'
 // import { useHistory } from 'react-router-dom';
-import io from 'socket.io-client';
 import { connect } from 'react-redux'
 import spadesW from '../spadesWhite.png'
 import './styles/JoinTable.css'

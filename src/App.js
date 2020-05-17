@@ -16,8 +16,8 @@ class App extends Component {
         <div className="App">
           <Router>
             <Switch>
-              <Route exact to="/" component={Home} />
-              <Route to='/table' component={Table}/>
+              <Route exact path="/" component={Home} />
+              <Route path='/table/:id' component={Table}/>
             </Switch>
           </Router>
         </div>

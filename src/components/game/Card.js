@@ -62,6 +62,10 @@ import SJ from './CardSet/Spades/J.png';
 import SQ from './CardSet/Spades/Q.png';
 import SK from './CardSet/Spades/K.png';
 
+
+//placehlder image
+import ph from './ph.png';
+
 /**
  * 0 : Spades
  * 1 : Clubs
@@ -81,9 +85,26 @@ const Cards = [
 ]
 
 const Card = (props) => {
+
+    if (props.placeholder) {
+        return (
+            <div className='col s1'>
+            <img alt="" src={ph} width="32em" height='55em' className="Card" />
+        </div>
+        )
+    }
+
+    if (props.back) {
+        return (
+            <div className='col s1'>
+            <img alt="" src={Back} width="32em" height='55em' className="Card" />
+        </div>
+        )
+    }
+    let [suit, rank] = props.card.split("-").map(str => parseInt(str));
     return (
-        <div>
-            <img alt="" src={HA} width="32em" height='55em' className="Card" />
+        <div className='col s1'>
+            <img alt="" src={Cards[suit][rank]} width="32em" height='55em' className="Card" />
         </div>
     )
 }

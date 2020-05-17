@@ -1,23 +1,24 @@
 import React from 'react'
-// import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
 import spadesW from '../spadesWhite.png'
 import './styles/JoinTable.css'
+
 const JoinPublic = (props) => {
 
-    //history hook for redirection
-    // const history = useHistory();
-    /**
-     * handle joinPublic Button
-     * @param {Event} e 
-     */
     const joinPublic = (e) => {
         e.preventDefault();
         console.log("CLICKED JOIN PUBLIC")
         props.dispatch({
-            type:'JOIN_PUBLIC',
-            payload:props.nameField.current.value
+            type: 'JOIN_PUBLIC',
+            payload: props.nameField.current.value
         });
+
+        
+    }
+
+    if (props.tableId && props.playerId) {
+        return <Redirect to={`/table/${props.tableId}`} />;
     }
     return (
         <div className='center-align'>
@@ -31,4 +32,13 @@ const JoinPublic = (props) => {
     )
 }
 
-export default connect()(JoinPublic);
+
+const mapStateToProps = state => {
+    return {
+        tableId: state.tableId,
+        playerId: state.playerId
+    }
+}
+
+// connect to redux
+export default connect(mapStateToProps)(JoinPublic);

@@ -1,11 +1,24 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
+import {useHistory} from 'react-router-dom';
 // Game buttons that will send events on the socket
 const GameButton = (props) => {
 
-
+    let history = useHistory();
     const handleClick = (e) => {
-        e.preventDefault();
+        props.dispatch({
+            type: props.event,
+            payload: {
+                tableId: props.tableId,
+                playerId: props.playerId
+            }
+        })
+
+        if (props.event === "LEAVE") {
+            history.push('/');
+            history.push('/');
+            history.push('/');
+        }
 
     }
 
@@ -18,4 +31,12 @@ const GameButton = (props) => {
         </div>
     )
 }
-export default GameButton;
+
+function mapStateToProps(state) {
+    return {
+        tableId: state.tableId,
+        playerId: state.playerId
+    }
+}
+
+export default connect(mapStateToProps, null)(GameButton);

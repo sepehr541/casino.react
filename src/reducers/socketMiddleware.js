@@ -1,51 +1,57 @@
 import io from 'socket.io-client';
-import { INITIALIZE, PLAYER_BET, PLAYER_STAY, PLAYER_HIT } from './constants'
+import { INITIALIZE, UPDATE } from './constants';
 
-const socketMiddleware = ({ getState, dispatch }) => {
 
+const socketMiddleware = () => {
     console.log('trying to connect');
     let socket = io.connect('/tables');
+
     const onConnected = (event) => {
-        socket.emit('connected', 'connectedBack from redux')
+        socket.emit('connected', 'connectedBack from redux');
     }
 
-    // // Dispatch actions on incoming
-    // socket.on("message", (message) => {
-    //     store.dispatch({
-    //         type: "SOCKET_MESSAGE_RECEIVED",
-    //         payload: message
-    //     });
-    // });
-
-    const onInit = (state) => {
-        console.log('onInit called')
-        dispatch({
-            type:INITIALIZE,
-            payload: state
-        })
-    }
-
+    let init = false;
     // dispatch on outgoing
-    return dispatch => action => {
+    return store => next => action => {
+        //console.log('middleware called');
 
-        socket.on('connected', onConnected);
-        socket.on('init', onInit);
+        // call back intialization block
+        if (!init) {
+            // console.log("Intializing callbacks on Socket");
+            socket.on('connected', onConnected);
 
-        if (action.type === PLAYER_BET) {
-            socket.emit('BET', action.payload);
-            return dispatch(action);
-        } else if (action.type === PLAYER_HIT) {
-            socket.emit('HIT', action.payload);
-            return;
-        } else if (action.type === PLAYER_STAY) {
-            socket.emit('STAY', action.payload);
-            return;
-        } else if (action.type === 'JOIN_PUBLIC') {
-            socket.emit('JOIN_PUBLIC', action.payload);
-            return;
+            socket.on('init', (payload) => {
+                console.log('init event on socket');
+                next({
+                    type: INITIALIZE,
+                    payload,
+                })
+            });
+
+            socket.on('noTable', () => {
+                alert("no Table Available");
+            })
+
+            socket.on('UPDATE', (payload)=> {
+                next({
+                    type: UPDATE,
+                    payload,
+                })
+            });
+
+            socket.on("INSUFFICIENT_CHIPS",  (payload) => {
+                if (store.getState().playerId === payload.playerId)
+                    alert('You do not have enough chips');
+            });
+
+            init = true;
         }
 
-        return dispatch(action);
+        socket.emit(action.type, action.payload)
+
+        if (action.type === "LEAVE") {
+            next(action);
+        }
     }
 }
 
