@@ -8,7 +8,6 @@ const JoinPublic = (props) => {
 
     const joinPublic = (e) => {
         e.preventDefault();
-        console.log("CLICKED JOIN PUBLIC")
         props.dispatch({
             type: 'JOIN_PUBLIC',
             payload: props.nameField.current.value

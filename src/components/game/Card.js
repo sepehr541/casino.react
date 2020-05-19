@@ -101,6 +101,7 @@ const Card = (props) => {
         </div>
         )
     }
+    
     let [suit, rank] = props.card.split("-").map(str => parseInt(str));
     return (
         <div className='col s1'>

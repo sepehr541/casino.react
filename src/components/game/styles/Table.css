@@ -3,7 +3,7 @@
     border: 2px;
     border-color: blueviolet;
     height: 35em !important;
-    border-radius: 50%;
+    border-radius: 25%;
 }
 
 .tableBtns {
@@ -16,3 +16,4 @@ textarea {
 .topDealer {
     height: 30%;
 }
+

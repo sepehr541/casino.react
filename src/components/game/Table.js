@@ -6,7 +6,6 @@ import Bet from './gameInteract/Bet';
 import Player from './Player';
 import Dealer from './Dealer';
 
-
 const Table = (props) => {
 
     // initialize the players
@@ -21,19 +20,24 @@ const Table = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className='players container' style={{position:'relative', height:'80%', zIndex:'2'}} >
-                    <div className='topPlayers row'>
-                    <div className='col s2 push-s10'>
-                        <Player index={0}  handLeft={'-20px'}/>
+                <div className='players container' style={{ position: 'relative', height: '40%', zIndex: '2' }} >
+                    <div className='row'>
+                        <div className='col s2 push-s10'>
+                            <Player index={0} handLeft={'-20px'} />
+                        </div>
+                        <div className='col s2 pull-s2'>
+                            <Player index={2} handLeft={'20px'} />
+                        </div>
+                        <div className='col s2 push-s1'>
+                            <Player index={1} handLeft={'10px'} />
+                        </div>
                     </div>
-                        <Player index={4} playerTop={'0%'} playerLeft={'5%'} handLeft={'20px'} />
-                    </div>
-                    <div className='midPlayers row' >
-                        <Player index={1} playerTop={'35%'} playerLeft={'78%'} handLeft={'-10px'} />
-                        <Player index={3} playerTop={'35%'} playerLeft={'15%'} handLeft={'10px'} />
-                    </div>
-                    <div className='lowPlayers row'>
-                        <Player index={2} playerTop={'60%'} playerLeft={'45%'} />
+                </div>
+                <div className='center-align' style={{ position:'relative', padding: '20px', top: '10px', height: '20%', zIndex: '2' }} >
+                    <div className='row'>
+                        <div className='col s4 push-l4 push-s2'>
+                            <p className="glow">{props.isBetOpen ? 'Place Bets' : props.showDealer ? "Reveal" : "Hit or Stay"}</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -51,5 +55,10 @@ const Table = (props) => {
     )
 }
 
-
-export default connect()(Table);
+const mapStateToProps = state => {
+    return {
+        isBetOpen: state.isBetOpen,
+        showDealer: state.showDealer
+    }
+}
+export default connect(mapStateToProps)(Table);

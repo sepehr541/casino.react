@@ -6,20 +6,17 @@ import mainReducer from './reducers/rootReducer';
 import socketMiddleware from './reducers/socketMiddleware';
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
-import  Logger from './reducers/logger';
+// import  Logger from './reducers/logger';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 let store = createStore(mainReducer,
   composeEnhancers(
     applyMiddleware(
-      socketMiddleware(),
-      Logger
+      socketMiddleware()
     )
   )
 );
-
-store.subscribe(()=> console.log(store.getState()));
 
 ReactDOM.render(
   <Provider store={store}>

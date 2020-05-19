@@ -1,9 +1,9 @@
 import io from 'socket.io-client';
-import { INITIALIZE, UPDATE } from './constants';
+import { INITIALIZE, UPDATE, PLAYER_LEFT } from './constants';
 
 
 const socketMiddleware = () => {
-    console.log('trying to connect');
+    // console.log('trying to connect');
     let socket = io.connect('/tables');
 
     const onConnected = (event) => {
@@ -21,7 +21,7 @@ const socketMiddleware = () => {
             socket.on('connected', onConnected);
 
             socket.on('init', (payload) => {
-                console.log('init event on socket');
+                // console.log('init event on socket');
                 next({
                     type: INITIALIZE,
                     payload,
@@ -35,6 +35,13 @@ const socketMiddleware = () => {
             socket.on('UPDATE', (payload)=> {
                 next({
                     type: UPDATE,
+                    payload,
+                })
+            });
+
+            socket.on('PLAYER_LEFT', (payload)=> {
+                next({
+                    type: PLAYER_LEFT,
                     payload,
                 })
             });

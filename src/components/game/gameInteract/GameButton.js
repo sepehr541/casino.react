@@ -16,8 +16,6 @@ const GameButton = (props) => {
 
         if (props.event === "LEAVE") {
             history.push('/');
-            history.push('/');
-            history.push('/');
         }
 
     }

@@ -6,6 +6,7 @@ export const PLAYER_HIT = "PLAYER_HIT";
 export const PLAYER_STAY = "PLAYER_STAY";
 
 export const PLAYER_JOINED = 'PLAYER_JOINED';
+export const PLAYER_LEFT = 'PLAYER_LEFT';
 export const LEAVE = 'LEAVE';
 
 

@@ -1,4 +1,4 @@
-import { INITIALIZE, UPDATE, LEAVE } from './constants';
+import { INITIALIZE, UPDATE, LEAVE, PLAYER_LEFT } from './constants';
 
 // FROM : https://redux.js.org/recipes/structuring-reducers/refactoring-reducer-example
 function updateObject(oldObject, newValues) {
@@ -8,7 +8,7 @@ function updateObject(oldObject, newValues) {
 }
 let initialState = {}
 export const rootReducer = (state = initialState, action) => {
-    console.log("reducer called by action " + action.type);    
+    // console.log("reducer called by action " + action.type);    
     
     switch (action.type) {
         case(INITIALIZE): {
@@ -21,6 +21,12 @@ export const rootReducer = (state = initialState, action) => {
 
         case (LEAVE): {
             return {};
+        }
+
+        case(PLAYER_LEFT): {
+            let newState = {...state};
+            delete newState[action.payload.playerSeat];
+            return newState;
         }
         
         default:

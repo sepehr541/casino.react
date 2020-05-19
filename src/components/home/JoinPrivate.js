@@ -24,7 +24,7 @@ const JoinPrivate = (props) => {
                 </div>
             </div>
             <div className="row">
-                <button className="btn btn-large blue-grey darken-4 waves-effect waves-light menuBtn" style={{ color: '#fdd835' }} onClick={joinPrivate}>
+                <button className="btn btn-large blue-grey darken-4 waves-effect waves-light menuBtn disabled" style={{ color: '#fdd835' }} onClick={joinPrivate}>
                     <img className='circle icon' src={spadesW} width='20px' height='20px' alt="" />
                 Join Private Table
                 </button>
