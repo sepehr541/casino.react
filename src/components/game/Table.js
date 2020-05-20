@@ -5,10 +5,19 @@ import GameButton from './gameInteract/GameButton';
 import Bet from './gameInteract/Bet';
 import Player from './Player';
 import Dealer from './Dealer';
+import { useBeforeunload } from 'react-beforeunload';
 
 const Table = (props) => {
 
-    // initialize the players
+    useBeforeunload(()=> {
+        props.dispatch({
+            type: "LEAVE",
+            payload: {
+                tableId: props.tableId,
+                playerId: props.playerId
+            }
+        })
+    });
 
     return (
         <div className='container'>
@@ -57,6 +66,8 @@ const Table = (props) => {
 
 const mapStateToProps = state => {
     return {
+        tableId: state.tableId,
+        playerId: state.playerId,
         isBetOpen: state.isBetOpen,
         showDealer: state.showDealer
     }
